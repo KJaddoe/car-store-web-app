@@ -1,0 +1,108 @@
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+    pageEncoding="ISO-8859-1"%>
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<title>Test</title>
+</head>
+<%@ page import="toets.AutoLijst ,toets.Auto, java.util.*" %>
+<%
+
+%>
+<%
+//-----------------alles----------------------
+AutoLijst all = new AutoLijst();
+ArrayList<Auto> autolijst = all.getLijst();
+
+//---------------niewe selectie---------------
+AutoLijst selectie = new AutoLijst();
+
+String error = "";
+
+%>
+<body>
+<%@ include file="Menu.jsp" %>
+<div class="container">
+	<div class="jumbotron">
+		<div class="opdrachten" id="zelftoets">
+			<h2>Chapter 3 Test</h2>
+			<p>Maak een webpagina volgens onderstaand voorbeeld waarin auto's of andere produkten worden vertoond en waarbij de gebruiker 
+			kan selecteren op merk of minimum- en/of maximumprijs.</p>
+			<p> <%=error %></p>
+
+			
+			<label>Kies Merk</label>
+				<form action="#" method="get">
+		 		<select name = "selectie" id="merk">
+			 		<option value="all">alle auto's</option>
+			 		<option value="Ford">Ford</option>
+					<option value="Opel">Opel</option>
+					<option value="Subaru">Subaru</option>                 
+					<option value="Mercedes">Mercedes</option>
+					<option value="Ferrari">Ferrari</option>
+					<option value="Citroen">Citroen</option>
+					<option value="Mini">Mini</option>             
+				</select>
+	   
+			   <br>
+		       <label>Minimum prijs</label>
+		       <input type="text" name="minprijs">
+		       <label>Maximum prijs</label>
+		       <input type="text" name="maxprijs"><br>
+		       <input type="submit" name="filterKnop" value="OK">
+		       </form>
+		       
+		      
+
+			<div id="autoselectie">              
+				
+			 <% if (request.getParameter ("filterKnop") != null) {
+				int minPrijs;
+				int maxPrijs;
+				
+				
+				try{
+				if (request.getParameter("minprijs").equals ("") || request.getParameter("minprijs") == null ) {
+				 minPrijs = 1;
+				}  
+				
+				else {
+				 minPrijs = Integer.parseInt(request.getParameter("minprijs"));
+				}
+				   
+				if(request.getParameter("maxprijs").equals("") || request.getParameter("maxprijs") == null){
+					maxPrijs = 999999999;					
+				}
+				
+				else{
+					maxPrijs = Integer.parseInt(request.getParameter("maxprijs"));
+				}
+		
+				for(Auto auto : all.getFilter(request.getParameter("selectie"),minPrijs,maxPrijs)) {%>
+					<div class="autokader">
+					<img src="<%=auto.getFoto()%>" alt="<%=auto.getMerk()%> <%= auto.getType()%>">
+					<p class="merktype"><%=auto.getMerk()%> <%= auto.getType()%></p>
+					<p class="prijs">&euro; <%=auto.getPrijsFormat() %></p>
+					</div>
+				<%}
+				}
+				
+				catch(NumberFormatException e){
+					error = "error!!!! enter a number";
+				}
+				
+				finally{
+					//niks
+				}
+			} %>
+			<p style = "color:red"> <%=error %></p>
+			</div>
+	            
+	            
+		</div>
+	</div>
+</div>
+<%@ include file="page_end.jsp" %>
+</body>
+</html>
