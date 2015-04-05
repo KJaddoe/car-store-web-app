@@ -31,7 +31,7 @@ String error = "";
 			kan selecteren op merk of minimum- en/of maximumprijs.</p>
 			<p> <%=error %></p>
 
-			
+			<!-- Brand selection -->
 			<label>Kies Merk</label>
 				<form action="#" method="get">
 		 		<select name = "selectie" id="merk">
@@ -46,6 +46,7 @@ String error = "";
 				</select>
 	   
 			   <br>
+			   <!-- Price selection -->
 		       <label>Minimum prijs</label>
 		       <input type="text" name="minprijs">
 		       <label>Maximum prijs</label>
@@ -63,22 +64,27 @@ String error = "";
 				
 				
 				try{
+				// if there is no minimun price, then the minimum price becomse 1
 				if (request.getParameter("minprijs").equals ("") || request.getParameter("minprijs") == null ) {
 				 minPrijs = 1;
 				}  
 				
+				// if there is a minimum price, then the minimum price equals the number that the consumer entered
 				else {
 				 minPrijs = Integer.parseInt(request.getParameter("minprijs"));
 				}
-				   
+				
+				// if there is no maximum price, then the maximum price becomse 999999999
 				if(request.getParameter("maxprijs").equals("") || request.getParameter("maxprijs") == null){
 					maxPrijs = 999999999;					
 				}
 				
+				// if there is a maximum price, then the maximum price equals the number that the consumer entered
 				else{
 					maxPrijs = Integer.parseInt(request.getParameter("maxprijs"));
 				}
-		
+				
+				// making the cars appear on screen
 				for(Auto auto : all.getFilter(request.getParameter("selectie"),minPrijs,maxPrijs)) {%>
 					<div class="autokader">
 					<img src="<%=auto.getFoto()%>" alt="<%=auto.getMerk()%> <%= auto.getType()%>">
@@ -88,6 +94,7 @@ String error = "";
 				<%}
 				}
 				
+				// what to do if an consumer enters letters instead of numbers
 				catch(NumberFormatException e){
 					error = "error!!!! enter a number";
 				}
