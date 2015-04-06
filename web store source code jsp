@@ -25,6 +25,9 @@ String error = "";
 <%@ include file="Menu.jsp" %>
 <div class="container">
 	<div class="jumbotron">
+	
+	<a href = "https://github.com/KJaddoe/car-store-web-app">Open Source code</a>
+	
 		<div class="opdrachten" id="zelftoets">
 			<h2>Chapter 3 Test</h2>
 			<p>Maak een webpagina volgens onderstaand voorbeeld waarin auto's of andere produkten worden vertoond en waarbij de gebruiker 
@@ -35,14 +38,16 @@ String error = "";
 			<label>Kies Merk</label>
 				<form action="#" method="get">
 		 		<select name = "selectie" id="merk">
-			 		<option value="all">alle auto's</option>
-			 		<option value="Ford">Ford</option>
-					<option value="Opel">Opel</option>
-					<option value="Subaru">Subaru</option>                 
-					<option value="Mercedes">Mercedes</option>
-					<option value="Ferrari">Ferrari</option>
-					<option value="Citroen">Citroen</option>
-					<option value="Mini">Mini</option>             
+		 			<option value="all">All brands</option>
+			 		<option value="Ford">Ford</option>				                
+                	<option value="Opel">Opel</option>
+                	<option value="Subaru">Subaru</option>
+                	<option value="Mercedes">Mercedes</option>				                
+                	<option value="Ferrari">Ferrari</option>				                
+                	<option value="Lotus">Lotus</option>				                
+                	<option value="Citroen">Citroen</option>				                
+                	<option value="Volvo">Volvo</option>				                
+                	<option value="Mini">Mini</option>             
 				</select>
 	   
 			   <br>
@@ -58,12 +63,15 @@ String error = "";
 
 			<div id="autoselectie">              
 				
-			 <% if (request.getParameter ("filterKnop") != null) {
+			 <% try{
+			 	
+				// when button is pressed
+			 	if (request.getParameter ("filterKnop") != null) {
 				int minPrijs;
 				int maxPrijs;
 				
 				
-				try{
+				
 				// if there is no minimun price, then the minimum price becomse 1
 				if (request.getParameter("minprijs").equals ("") || request.getParameter("minprijs") == null ) {
 				 minPrijs = 1;
@@ -92,7 +100,21 @@ String error = "";
 					<p class="prijs">&euro; <%=auto.getPrijsFormat() %></p>
 					</div>
 				<%}
+			 	}
+			 	
+			 	//if the for statement above can't be used. use the ArrayList with all the cars (without the filter)
+				else{
+	        		for(Auto auto: all.getLijst()){%>
+						<div class="autokader">
+						<img src="<%=auto.getFoto()%>" alt="<%=auto.getMerk()%> <%= auto.getType()%>">
+						<p class="merktype"><%=auto.getMerk()%> <%= auto.getType()%></p>
+						<p class="prijs">&euro; <%=auto.getPrijsFormat() %></p>
+						</div>
+	        		<%}
+				
+				
 				}
+			 }
 				
 				// what to do if an consumer enters letters instead of numbers
 				catch(NumberFormatException e){
@@ -102,7 +124,7 @@ String error = "";
 				finally{
 					//niks
 				}
-			} %>
+			 %>
 			<p style = "color:red"> <%=error %></p>
 			</div>
 	            
