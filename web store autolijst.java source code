@@ -33,12 +33,33 @@ public class AutoLijst {
         Auto mercedes2 = new Auto("Mercedes", "CLA 45", 190780, 
           "images/autos/mercedescla45.jpg");
         autolijst.add(mercedes2);
+        Auto mercedes3 = new Auto("Mercedes", "E 230", 1000, 
+           "images/autos/mercedese230.jpg");
+        autolijst.add(mercedes3);
+        Auto mercedes4 = new Auto("Mercedes", "C 250", 599, 
+           "images/autos/mercedesc250.jpg");
+        autolijst.add(mercedes4);
         Auto ferrari1 = new Auto("Ferrari", "612 GTO", 350500, 
           "images/autos/ferrari612.jpg");
         autolijst.add(ferrari1);
+        Auto ferrari2 = new Auto("Ferrari", "California", 210780, 
+          "images/autos/ferraricalifornia.jpg");
+        autolijst.add(ferrari2);
+        Auto ferrari3 = new Auto("Ferrari", "458", 280755, 
+          "images/autos/ferrari458.jpg");
+        autolijst.add(ferrari3);
+        Auto lotus1 = new Auto("Lotus", "Elise CR", 48591, 
+           "images/autos/lotuselisecr.jpg");
+        autolijst.add(lotus1);
+        Auto lotus2 = new Auto("Lotus", "Elise S CR", 60079, 
+            "images/autos/lotuselisescr.jpg");
+        autolijst.add(lotus2);
         Auto citroen1 = new Auto("Citroen", "2CV", 459, 
           "images/autos/citroen2cv.jpg");
         autolijst.add(citroen1);
+        Auto volvo1 = new Auto("Volvo", "V40", 1250, 
+           "images/autos/volvov40.jpg");
+        autolijst.add(volvo1);
         Auto mini1 = new Auto("Mini", "Cooper", 34495, 
           "images/autos/minicooper.jpg");
         autolijst.add(mini1);
@@ -57,7 +78,7 @@ public class AutoLijst {
         
         for(Auto a : this.autolijst){
          
-         
+         // 
          if(a.getMerk().equals(merk) && a.getPrijs() >= minprijs && a.getPrijs() <= maxprijs ) {
           merklijst.add(a);
           }
@@ -71,7 +92,8 @@ public class AutoLijst {
        }
     
     //------------------Merken-------------------------
-    public ArrayList<String> getMerk() {
+    
+    public ArrayList<String> getMerken() {
         ArrayList<String> merken = new ArrayList<String>();
         for (Auto auto: autolijst) {
             String merk = auto.getMerk();
