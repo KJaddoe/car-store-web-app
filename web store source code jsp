@@ -37,19 +37,12 @@ String error = "";
 			<!-- Brand selection -->
 			<label>Kies Merk</label>
 				<form action="#" method="get">
-		 		<select name = "selectie" id="merk">
+			 	<select name = "selectie" id="merk">
 		 			<option value="all">All brands</option>
-			 		<option value="Ford">Ford</option>				                
-                	<option value="Opel">Opel</option>
-                	<option value="Subaru">Subaru</option>
-                	<option value="Mercedes">Mercedes</option>				                
-                	<option value="Ferrari">Ferrari</option>				                
-                	<option value="Lotus">Lotus</option>				                
-                	<option value="Citroen">Citroen</option>				                
-                	<option value="Volvo">Volvo</option>				                
-                	<option value="Mini">Mini</option>             
+		 			<%for(String string : all.getMerken()){%>
+			 		<option value="<%= string%>"><%= string%></option>		                
+	             		<%} %>
 				</select>
-	   
 			   <br>
 			   <!-- Price selection -->
 		       <label>Minimum prijs</label>
